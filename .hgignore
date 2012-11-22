@@ -35,3 +35,6 @@ _ReSharper*/
 # ncrunch files
 *.ncrunchsolution
 *.ncrunchproject
+
+# nuget restore
+packages/
