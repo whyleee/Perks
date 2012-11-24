@@ -13,7 +13,7 @@ namespace Perks.Configuration
     /// </summary>
     public class AppSettingsConfigurationProvider : IConfigurationProvider
     {
-        private readonly ConfigWrapper _config;
+        protected readonly ConfigWrapper _config;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AppSettingsConfigurationProvider" /> class.
@@ -26,7 +26,7 @@ namespace Perks.Configuration
         }
 
         /// <summary>
-        /// Gets the setting from configuration.
+        /// Gets the setting from the application configuration file.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="mandatory">if set to <c>true</c> setting should exist.</param>
@@ -34,7 +34,7 @@ namespace Perks.Configuration
         /// <remarks>
         /// For mandatory setting without value or with value starting from "[ENTER" string, <see cref="ConfigurationErrorsException"/> will be thrown.
         /// </remarks>
-        public string GetSetting(string key, bool mandatory = false)
+        public virtual string GetSetting(string key, bool mandatory = false)
         {
             if (key != null && key.StartsWith("ConnectionStrings."))
             {
@@ -52,7 +52,7 @@ namespace Perks.Configuration
         }
 
         /// <summary>
-        /// Gets the setting from configuration.
+        /// Gets the setting from the application configuration file.
         /// </summary>
         /// <typeparam name="T">The type of setting value.</typeparam>
         /// <param name="key">The key.</param>
@@ -62,7 +62,7 @@ namespace Perks.Configuration
         /// For mandatory setting without value or with value starting from "[ENTER" string, <see cref="ConfigurationErrorsException"/> will be thrown.
         /// If setting value can't be converted to the specified type, <see cref="ConfigurationErrorsException"/> also will be thrown.
         /// </remarks>
-        public T GetSetting<T>(string key, bool mandatory = false)
+        public virtual T GetSetting<T>(string key, bool mandatory = false)
         {
             var value = GetSetting(key, mandatory);
 

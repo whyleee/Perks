@@ -13,8 +13,8 @@ namespace Perks.Data
     /// </summary>
     public class LocalFileStorage : IStorage
     {
-        private readonly IConfigurationProvider _config;
-        private readonly IoWrapper _io;
+        protected readonly IConfigurationProvider _config;
+        protected readonly IoWrapper _io;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LocalFileStorage" /> class.
