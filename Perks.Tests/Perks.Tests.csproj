@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\AppSettingsConfigurationProviderTests.cs" />
+    <Compile Include="Data\InMemoryFileStorageTests.cs" />
     <Compile Include="Data\InMemoryRepositoryTests.cs" />
     <Compile Include="Data\LocalFileStorageTests.cs" />
     <Compile Include="Data\Xml\XmlStorageRepositoryTests.cs" />

@@ -12,7 +12,7 @@ namespace Perks.Wrappers
     public class IoWrapper
     {
         /// <summary>
-        /// Creates a new file.
+        /// Creates a new file or overwrites existing.
         /// </summary>
         /// <param name="path">The path where to create it.</param>
         /// <returns><see cref="Stream"/> to write data to the new file.</returns>
@@ -32,7 +32,7 @@ namespace Perks.Wrappers
         }
 
         /// <summary>
-        /// Opens the file to write.
+        /// Opens the file to write or creates a new file if not exist.
         /// </summary>
         /// <param name="path">The path to file.</param>
         /// <returns><see cref="TextWriter"/> that can write to a file.</returns>

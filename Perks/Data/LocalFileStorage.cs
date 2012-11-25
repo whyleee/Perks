@@ -29,7 +29,7 @@ namespace Perks.Data
         }
 
         /// <summary>
-        /// Creates new file in the storage.
+        /// Creates a new file in the storage or overwrites existing.
         /// </summary>
         /// <param name="path">The path where to create a file.</param>
         public virtual void CreateFile(string path)
@@ -76,7 +76,7 @@ namespace Perks.Data
         }
 
         /// <summary>
-        /// Opens the file to write.
+        /// Opens the file to write or creates a new file if not exist.
         /// </summary>
         /// <param name="path">The path to file.</param>
         /// <returns><see cref="TextWriter" /> that can write to a file.</returns>
