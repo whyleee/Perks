@@ -5,7 +5,7 @@ namespace Perks.Data
     /// <summary>
     /// Represents any kind of file storage.
     /// </summary>
-    public interface IStorage
+    public interface IFileStorage
     {
         /// <summary>
         /// Creates new file in the storage.
@@ -43,6 +43,13 @@ namespace Perks.Data
         byte[] ReadFile(string path);
 
         /// <summary>
+        /// Reads entire file contents as string.
+        /// </summary>
+        /// <param name="path">The path to file.</param>
+        /// <returns>String with file contents.</returns>
+        string ReadFileText(string path);
+
+        /// <summary>
         /// Writes the contents to the file.
         /// </summary>
         /// <param name="path">The path to file.</param>
@@ -50,9 +57,23 @@ namespace Perks.Data
         void WriteFile(string path, byte[] contents);
 
         /// <summary>
+        /// Writes the contents to the file.
+        /// </summary>
+        /// <param name="path">The path to file.</param>
+        /// <param name="contents">New file contents.</param>
+        void WriteFile(string path, string contents);
+
+        /// <summary>
         /// Deletes the file.
         /// </summary>
         /// <param name="path">The path to file.</param>
         void DeleteFile(string path);
+
+        /// <summary>
+        /// Checks whether a file exists for provided path.
+        /// </summary>
+        /// <param name="path">The path to file.</param>
+        /// <returns><c>true</c> if file exists for provided path; otherwise <c>false</c>.</returns>
+        bool FileExists(string path);
     }
 }

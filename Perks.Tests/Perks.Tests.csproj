@@ -63,6 +63,7 @@
     <Compile Include="Configuration\AppSettingsConfigurationProviderTests.cs" />
     <Compile Include="Data\InMemoryRepositoryTests.cs" />
     <Compile Include="Data\LocalFileStorageTests.cs" />
+    <Compile Include="Data\Xml\XmlStorageRepositoryTests.cs" />
     <Compile Include="EnsureTests.cs" />
     <Compile Include="FixtureWitKernel.cs" />
     <Compile Include="ObjectExtensionsTests.cs" />

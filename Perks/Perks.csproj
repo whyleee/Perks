@@ -47,6 +47,8 @@
     <Compile Include="Data\InMemoryRepository.cs" />
     <Compile Include="Data\IRepository.cs" />
     <Compile Include="Data\LocalFileStorage.cs" />
+    <Compile Include="Data\Xml\XmlService.cs" />
+    <Compile Include="Data\Xml\XmlStorageRepository.cs" />
     <Compile Include="Ensure.cs" />
     <Compile Include="ObjectExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

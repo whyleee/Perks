@@ -11,7 +11,7 @@ namespace Perks.Data
     /// <summary>
     /// Local file system storage.
     /// </summary>
-    public class LocalFileStorage : IStorage
+    public class LocalFileStorage : IFileStorage
     {
         protected readonly IConfigurationProvider _config;
         protected readonly IoWrapper _io;
@@ -96,6 +96,16 @@ namespace Perks.Data
         }
 
         /// <summary>
+        /// Reads entire file contents as string.
+        /// </summary>
+        /// <param name="path">The path to file.</param>
+        /// <returns>String with file contents.</returns>
+        public string ReadFileText(string path)
+        {
+            return _io.ReadAllText(path);
+        }
+
+        /// <summary>
         /// Writes the contents to the file.
         /// </summary>
         /// <param name="path">The path to file.</param>
@@ -106,12 +116,32 @@ namespace Perks.Data
         }
 
         /// <summary>
+        /// Writes the contents to the file.
+        /// </summary>
+        /// <param name="path">The path to file.</param>
+        /// <param name="contents">New file contents.</param>
+        public void WriteFile(string path, string contents)
+        {
+            _io.WriteAllText(path, contents);
+        }
+
+        /// <summary>
         /// Deletes the file.
         /// </summary>
         /// <param name="path">The path to file.</param>
         public virtual void DeleteFile(string path)
         {
             _io.DeleteFile(path);
+        }
+
+        /// <summary>
+        /// Checks whether a file exists for provided path.
+        /// </summary>
+        /// <param name="path">The path to file.</param>
+        /// <returns><c>true</c> if file exists for provided path; otherwise <c>false</c>.</returns>
+        public bool FileExists(string path)
+        {
+            return _io.FileExists(path);
         }
     }
 }

@@ -7,12 +7,12 @@ using System.Text;
 namespace Perks.Data
 {
     /// <summary>
-    /// Simple in-memory repository, which using <see cref="List{T}"/> internally and doesn't provide persistance for data.
+    /// Simple in-memory repository, which using <see cref="List{T}"/> internally and doesn't permanent.
     /// </summary>
     /// <typeparam name="T">The type of items in repository.</typeparam>
     public class InMemoryRepository<T> : IRepository<T> where T : class
     {
-        private readonly List<T> _list = new List<T>();
+        protected readonly List<T> _list = new List<T>();
 
         /// <summary>
         /// Gets all items of the specified type from the storage.
@@ -20,7 +20,7 @@ namespace Perks.Data
         /// <returns>
         /// All items of the specified type from the storage.
         /// </returns>
-        public IQueryable<T> GetAll()
+        public virtual IQueryable<T> GetAll()
         {
             return _list.AsReadOnly().AsQueryable();
         }
@@ -32,7 +32,7 @@ namespace Perks.Data
         /// <returns>
         /// The item from the storage by ID.
         /// </returns>
-        public T Get(object id)
+        public virtual T Get(object id)
         {
             return _list.FirstOrDefault(x => GetId(x).Equals(id));
         }
@@ -41,7 +41,7 @@ namespace Perks.Data
         /// Adds the specified item to the storage or updates existing item.
         /// </summary>
         /// <param name="item">The item to add.</param>
-        public void Save(T item)
+        public virtual void Save(T item)
         {
             if (_list.Any(x => EqualsById(x, item)))
             {
@@ -55,7 +55,7 @@ namespace Perks.Data
         /// Deletes the specified item.
         /// </summary>
         /// <param name="item">The item to delete.</param>
-        public void Delete(T item)
+        public virtual void Delete(T item)
         {
             var itemInRepo = _list.FirstOrDefault(x => EqualsById(x, item));
 
@@ -81,7 +81,7 @@ namespace Perks.Data
         /// </summary>
         /// <param name="item">The item.</param>
         /// <returns>Item ID if found, or its hash code otherwise.</returns>
-        private object GetId(object item)
+        protected virtual object GetId(object item)
         {
             var possibleIdPropertyNames = new[] {"Id", "Name", "Phone"};
 

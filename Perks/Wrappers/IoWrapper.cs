@@ -52,13 +52,33 @@ namespace Perks.Wrappers
         }
 
         /// <summary>
+        /// Reads entire file contents as string.
+        /// </summary>
+        /// <param name="path">The path to file.</param>
+        /// <returns>String with file contents.</returns>
+        public virtual string ReadAllText(string path)
+        {
+            return File.ReadAllText(path);
+        }
+
+        /// <summary>
         /// Writes the contents to the file.
         /// </summary>
         /// <param name="path">The path to file.</param>
-        /// <param name="bytes">New file contents.</param>
-        public virtual void WriteAllBytes(string path, byte[] bytes)
+        /// <param name="contents">New file contents.</param>
+        public virtual void WriteAllBytes(string path, byte[] contents)
         {
-            File.WriteAllBytes(path, bytes);
+            File.WriteAllBytes(path, contents);
+        }
+
+        /// <summary>
+        /// Writes the contents to the file.
+        /// </summary>
+        /// <param name="path">The path to file.</param>
+        /// <param name="contents">New file contents.</param>
+        public virtual void WriteAllText(string path, string contents)
+        {
+            File.WriteAllText(path, contents);
         }
 
         /// <summary>
@@ -68,6 +88,16 @@ namespace Perks.Wrappers
         public virtual void DeleteFile(string path)
         {
             File.Delete(path);
+        }
+
+        /// <summary>
+        /// Checks whether a file exists for provided path.
+        /// </summary>
+        /// <param name="path">The path to file.</param>
+        /// <returns><c>true</c> if file exists for provided path; otherwise <c>false</c>.</returns>
+        public virtual bool FileExists(string path)
+        {
+            return File.Exists(path);
         }
 
         /// <summary>
