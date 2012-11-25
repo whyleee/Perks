@@ -44,6 +44,8 @@
     <Compile Include="Configuration\AppSettingsConfigurationProvider.cs" />
     <Compile Include="Configuration\IConfigurationProvider.cs" />
     <Compile Include="Data\IFileStorage.cs" />
+    <Compile Include="Data\InMemoryRepository.cs" />
+    <Compile Include="Data\IRepository.cs" />
     <Compile Include="Data\LocalFileStorage.cs" />
     <Compile Include="Ensure.cs" />
     <Compile Include="ObjectExtensions.cs" />
