@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using Perks.Configuration;
 using Perks.Web.Wrappers;
 using Perks.Wrappers;
