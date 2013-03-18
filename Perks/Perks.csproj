@@ -41,8 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Aids\ILogger.cs" />
-    <Compile Include="Configuration\AppSettingsConfigurationProvider.cs" />
-    <Compile Include="Configuration\IConfigurationProvider.cs" />
+    <Compile Include="Configuration\AppSettingsConfigProvider.cs" />
+    <Compile Include="Configuration\IConfigProvider.cs" />
     <Compile Include="Data\IFileStorage.cs" />
     <Compile Include="Data\InMemoryFileStorage.cs" />
     <Compile Include="Data\InMemoryRepository.cs" />

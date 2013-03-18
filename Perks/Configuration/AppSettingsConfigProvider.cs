@@ -11,14 +11,14 @@ namespace Perks.Configuration
     /// <summary>
     /// Provider for standard .NET application configuration file.
     /// </summary>
-    public class AppSettingsConfigurationProvider : IConfigurationProvider
+    public class AppSettingsConfigProvider : IConfigProvider
     {
         protected readonly ConfigWrapper _config;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AppSettingsConfigurationProvider" /> class.
+        /// Initializes a new instance of the <see cref="AppSettingsConfigProvider" /> class.
         /// </summary>
-        public AppSettingsConfigurationProvider(ConfigWrapper config)
+        public AppSettingsConfigProvider(ConfigWrapper config)
         {
             Ensure.ArgumentNotNull(config, "config");
 

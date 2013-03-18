@@ -13,13 +13,13 @@ namespace Perks.Data
     /// </summary>
     public class LocalFileStorage : IFileStorage
     {
-        protected readonly IConfigurationProvider _config;
+        protected readonly IConfigProvider _config;
         protected readonly IoWrapper _io;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LocalFileStorage" /> class.
         /// </summary>
-        public LocalFileStorage(IConfigurationProvider config, IoWrapper io)
+        public LocalFileStorage(IConfigProvider config, IoWrapper io)
         {
             Ensure.ArgumentNotNull(config, "config");
             Ensure.ArgumentNotNull(io, "io");

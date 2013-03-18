@@ -60,7 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\AppSettingsConfigurationProviderTests.cs" />
+    <Compile Include="Configuration\AppSettingsConfigProviderTests.cs" />
     <Compile Include="Data\InMemoryFileStorageTests.cs" />
     <Compile Include="Data\InMemoryRepositoryTests.cs" />
     <Compile Include="Data\LocalFileStorageTests.cs" />
