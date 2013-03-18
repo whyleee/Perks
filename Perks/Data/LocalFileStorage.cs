@@ -50,7 +50,7 @@ namespace Perks.Data
                 extension = "tmp";
             }
 
-            var tempDirectory = _config.GetSetting("Storage.TempDirectory") ?? _io.GetTempPath();
+            var tempDirectory = _config.GetSetting("Storage.TempDirectory") ?? GetTempFolderPath();
             var path = Path.Combine(tempDirectory, string.Format("{0}.{1}", Guid.NewGuid().ToString("N"), extension));
 
             if (contents != null && contents.Length > 0)
@@ -139,9 +139,29 @@ namespace Perks.Data
         /// </summary>
         /// <param name="path">The path to file.</param>
         /// <returns><c>true</c> if file exists for provided path; otherwise <c>false</c>.</returns>
-        public bool FileExists(string path)
+        public virtual bool FileExists(string path)
         {
             return _io.FileExists(path);
+        }
+
+        /// <summary>
+        /// Creates all directories and subdirectores in the specified path.
+        /// </summary>
+        /// <param name="path">The path to the directory.</param>
+        public virtual void CreateDirectory(string path)
+        {
+            _io.CreateDirectory(path);
+        }
+
+        /// <summary>
+        /// Gets the path to the folder provided by the storage for temporary files.
+        /// </summary>
+        /// <returns>
+        /// The path to the temp folder.
+        /// </returns>
+        public virtual string GetTempFolderPath()
+        {
+            return _io.GetTempPath();
         }
     }
 }

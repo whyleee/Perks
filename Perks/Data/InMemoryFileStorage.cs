@@ -149,6 +149,24 @@ namespace Perks.Data
         }
 
         /// <summary>
+        /// Creates all directories and subdirectores in the specified path.
+        /// </summary>
+        /// <param name="path">The path to the directory.</param>
+        public void CreateDirectory(string path)
+        {
+            // TODO: does nothing now
+        }
+
+        /// <summary>
+        /// Gets the path to the folder provided by the storage for temporary files.
+        /// </summary>
+        /// <returns>The path to the temp folder.</returns>
+        public string GetTempFolderPath()
+        {
+            return TempPath;
+        }
+
+        /// <summary>
         /// Ensures the file exists.
         /// </summary>
         /// <param name="path">The path to file.</param>

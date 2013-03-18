@@ -101,6 +101,15 @@ namespace Perks.Wrappers
         }
 
         /// <summary>
+        /// Creates all directories and subdirectores in the specified path.
+        /// </summary>
+        /// <param name="path">The path to the directory.</param>
+        public virtual void CreateDirectory(string path)
+        {
+            Directory.CreateDirectory(path);
+        }
+
+        /// <summary>
         /// Gets the path to the default temporary folder configured for operating system.
         /// </summary>
         /// <returns>Path to the default temporary folder.</returns>

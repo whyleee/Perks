@@ -70,6 +70,9 @@ namespace Perks.Tests
         {
             // act
             Action call = () => Ensure.Argument(() => 7 > 0, "num", "should be a positive number");
+
+            // asserts
+            call.ShouldNotThrow();
         }
     }
 }

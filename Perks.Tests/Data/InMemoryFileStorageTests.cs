@@ -471,5 +471,28 @@ namespace Perks.Tests.Data
             // asserts
             exists.Should().BeFalse();
         }
+
+        [Test]
+        public void CreateDirectory_Should_not_do_anything()
+        {
+            // setups
+            var path = @"D:\work";
+
+            // act
+            Action call = () => storage.CreateDirectory(path);
+
+            // asserts
+            call.ShouldNotThrow();
+        }
+
+        [Test]
+        public void GetTempFolderPath_Should_return_path_to_the_C_temp_folder()
+        {
+            // act
+            var tempPath = storage.GetTempFolderPath();
+
+            // asserts
+            tempPath.Should().Be(@"C:\temp");
+        }
     }
 }
