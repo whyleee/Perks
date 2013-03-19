@@ -43,7 +43,7 @@ namespace Perks.Tests.Data
             // setups
             kernel.Get<IoWrapper>().GetTempPath().Returns(@"C:\temp");
 
-            kernel.Get<IConfigurationProvider>().GetSetting("Storage.TempDirectory").Returns((string) null);
+            kernel.Get<IConfigProvider>().GetSetting("Storage.TempDirectory").Returns((string) null);
 
             // act
             var path = storage.CreateTempFile(null, "txt");
@@ -62,7 +62,7 @@ namespace Perks.Tests.Data
 
             kernel.Get<IoWrapper>().GetTempPath().Returns(@"C:\temp");
 
-            kernel.Get<IConfigurationProvider>().GetSetting("Storage.TempDirectory").Returns((string) null);
+            kernel.Get<IConfigProvider>().GetSetting("Storage.TempDirectory").Returns((string) null);
 
             // act
             var path = storage.CreateTempFile(contents, "txt");
@@ -83,7 +83,7 @@ namespace Perks.Tests.Data
 
             kernel.Get<IoWrapper>().GetTempPath().Returns(@"C:\temp");
 
-            kernel.Get<IConfigurationProvider>().GetSetting("Storage.TempDirectory").Returns((string) null);
+            kernel.Get<IConfigProvider>().GetSetting("Storage.TempDirectory").Returns((string) null);
 
             // act
             var path = storage.CreateTempFile(contents, extension);
@@ -98,7 +98,7 @@ namespace Perks.Tests.Data
             // setups
             kernel.Get<IoWrapper>().GetTempPath().Returns(@"C:\temp");
 
-            kernel.Get<IConfigurationProvider>().GetSetting("Storage.TempDirectory")
+            kernel.Get<IConfigProvider>().GetSetting("Storage.TempDirectory")
                 .Returns(@"D:\work\temp");
 
             // act

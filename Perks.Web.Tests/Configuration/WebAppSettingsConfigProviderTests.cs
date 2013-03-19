@@ -14,11 +14,11 @@ using Perks.Wrappers;
 
 namespace Perks.Web.Tests.Configuration
 {
-    public class WebAppSettingsConfigurationProviderTests : FixtureWithKernel
+    public class WebAppSettingsConfigProviderTests : FixtureWithKernel
     {
-        private WebAppSettingsConfigurationProvider config;
+        private WebAppSettingsConfigProvider config;
 
-        public WebAppSettingsConfigurationProviderTests()
+        public WebAppSettingsConfigProviderTests()
         {
             kernel.Bind<ConfigWrapper>().ToMock().InSingletonScope();
             kernel.Bind<HostWrapper>().ToMock().InSingletonScope();
@@ -27,7 +27,7 @@ namespace Perks.Web.Tests.Configuration
         [SetUp]
         public void SetUp()
         {
-            config = kernel.Get<WebAppSettingsConfigurationProvider>();
+            config = kernel.Get<WebAppSettingsConfigProvider>();
         }
 
         [Test]

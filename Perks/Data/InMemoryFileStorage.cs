@@ -3,30 +3,17 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Perks.Configuration;
-using Perks.Wrappers;
 
 namespace Perks.Data
 {
     /// <summary>
-    /// Local file system storage.
+    /// Simple in-memory file manager, doesn't permanent, but can be useful for unit testing or quick prototyping.
     /// </summary>
-    public class LocalFileStorage : IFileStorage
+    public class InMemoryFileStorage : IFileStorage
     {
-        protected readonly IConfigProvider _config;
-        protected readonly IoWrapper _io;
+        protected readonly string TempPath = @"C:\temp";
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LocalFileStorage" /> class.
-        /// </summary>
-        public LocalFileStorage(IConfigProvider config, IoWrapper io)
-        {
-            Ensure.ArgumentNotNull(config, "config");
-            Ensure.ArgumentNotNull(io, "io");
-
-            _config = config;
-            _io = io;
-        }
+        protected readonly Dictionary<string, string> _files = new Dictionary<string, string>();
 
         /// <summary>
         /// Creates a new file in the storage or overwrites existing.
@@ -34,7 +21,9 @@ namespace Perks.Data
         /// <param name="path">The path where to create a file.</param>
         public virtual void CreateFile(string path)
         {
-            _io.CreateFile(path).Close();
+            Ensure.ArgumentNotNullOrEmpty(path, "path");
+
+            _files[path] = string.Empty;
         }
 
         /// <summary>
@@ -50,8 +39,7 @@ namespace Perks.Data
                 extension = "tmp";
             }
 
-            var tempDirectory = _config.GetSetting("Storage.TempDirectory") ?? GetTempFolderPath();
-            var path = Path.Combine(tempDirectory, string.Format("{0}.{1}", Guid.NewGuid().ToString("N"), extension));
+            var path = Path.Combine(TempPath, string.Format("{0}.{1}", Guid.NewGuid().ToString("N"), extension));
 
             if (contents != null && contents.Length > 0)
             {
@@ -72,17 +60,21 @@ namespace Perks.Data
         /// <returns><see cref="TextReader" /> that can read a file.</returns>
         public virtual TextReader OpenRead(string path)
         {
-            return _io.OpenRead(path);
+            EnsureFileExists(path);
+
+            return new StringReader(_files[path]);
         }
 
         /// <summary>
-        /// Opens the file to write or creates a new file if not exist.
+        /// Opens the file to write.
         /// </summary>
         /// <param name="path">The path to file.</param>
         /// <returns><see cref="TextWriter" /> that can write to a file.</returns>
         public virtual TextWriter OpenWrite(string path)
         {
-            return _io.OpenWrite(path);
+            Ensure.ArgumentNotNullOrEmpty(path, "path");
+
+            return new FileStringWriter(_files, path);
         }
 
         /// <summary>
@@ -92,7 +84,9 @@ namespace Perks.Data
         /// <returns>Byte array with file contents.</returns>
         public virtual byte[] ReadFile(string path)
         {
-            return _io.ReadAllBytes(path);
+            EnsureFileExists(path);
+
+            return Encoding.UTF8.GetBytes(_files[path]);
         }
 
         /// <summary>
@@ -100,9 +94,11 @@ namespace Perks.Data
         /// </summary>
         /// <param name="path">The path to file.</param>
         /// <returns>String with file contents.</returns>
-        public string ReadFileText(string path)
+        public virtual string ReadFileText(string path)
         {
-            return _io.ReadAllText(path);
+            EnsureFileExists(path);
+
+            return _files[path];
         }
 
         /// <summary>
@@ -112,7 +108,10 @@ namespace Perks.Data
         /// <param name="contents">New file contents.</param>
         public virtual void WriteFile(string path, byte[] contents)
         {
-            _io.WriteAllBytes(path, contents);
+            Ensure.ArgumentNotNullOrEmpty(path, "path");
+            Ensure.ArgumentNotNull(contents, "contents");
+
+            _files[path] = Encoding.UTF8.GetString(contents);
         }
 
         /// <summary>
@@ -120,9 +119,12 @@ namespace Perks.Data
         /// </summary>
         /// <param name="path">The path to file.</param>
         /// <param name="contents">New file contents.</param>
-        public void WriteFile(string path, string contents)
+        public virtual void WriteFile(string path, string contents)
         {
-            _io.WriteAllText(path, contents);
+            Ensure.ArgumentNotNullOrEmpty(path, "path");
+            Ensure.ArgumentNotNull(contents, "contents");
+
+            _files[path] = contents;
         }
 
         /// <summary>
@@ -131,7 +133,9 @@ namespace Perks.Data
         /// <param name="path">The path to file.</param>
         public virtual void DeleteFile(string path)
         {
-            _io.DeleteFile(path);
+            Ensure.ArgumentNotNullOrEmpty(path, "path");
+
+            _files.Remove(path);
         }
 
         /// <summary>
@@ -141,27 +145,73 @@ namespace Perks.Data
         /// <returns><c>true</c> if file exists for provided path; otherwise <c>false</c>.</returns>
         public virtual bool FileExists(string path)
         {
-            return _io.FileExists(path);
+            return _files.ContainsKey(path);
         }
 
         /// <summary>
         /// Creates all directories and subdirectores in the specified path.
         /// </summary>
         /// <param name="path">The path to the directory.</param>
-        public virtual void CreateDirectory(string path)
+        public void CreateDirectory(string path)
         {
-            _io.CreateDirectory(path);
+            // TODO: does nothing now
         }
 
         /// <summary>
         /// Gets the path to the folder provided by the storage for temporary files.
         /// </summary>
-        /// <returns>
-        /// The path to the temp folder.
-        /// </returns>
-        public virtual string GetTempFolderPath()
+        /// <returns>The path to the temp folder.</returns>
+        public string GetTempFolderPath()
         {
-            return _io.GetTempPath();
+            return TempPath;
+        }
+
+        /// <summary>
+        /// Ensures the file exists.
+        /// </summary>
+        /// <param name="path">The path to file.</param>
+        private void EnsureFileExists(string path)
+        {
+            Ensure.ArgumentNotNullOrEmpty(path, "path");
+
+            if (!_files.ContainsKey(path))
+            {
+                throw new FileNotFoundException(string.Format("Could not find file '{0}'", path));
+            }
+        }
+
+        /// <summary>
+        /// Special string writer, that updates file contents on disposing.
+        /// </summary>
+        private class FileStringWriter : StringWriter
+        {
+            private readonly string _filePath;
+            private readonly IDictionary<string, string> _files;
+
+            /// <summary>
+            /// Initializes a new instance of the <see cref="FileStringWriter" /> class.
+            /// </summary>
+            /// <param name="files">Collection of all files.</param>
+            /// <param name="filePath">The path to file.</param>
+            public FileStringWriter(IDictionary<string, string> files, string filePath)
+            {
+                Ensure.ArgumentNotNull(files, "files");
+                Ensure.ArgumentNotNullOrEmpty(filePath, "filePath");
+
+                _files = files;
+                _filePath = filePath;
+            }
+
+            /// <summary>
+            /// Releases the unmanaged resources used by the <see cref="T:System.IO.StringWriter" /> and optionally releases the managed resources.
+            /// </summary>
+            /// <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged resources.</param>
+            protected override void Dispose(bool disposing)
+            {
+                _files[_filePath] = ToString();
+
+                base.Dispose(disposing);
+            }
         }
     }
 }

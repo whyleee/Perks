@@ -18,7 +18,23 @@ namespace Perks
         /// </returns>
         public static bool IsSimpleType(this Type type)
         {
-            return type.IsPrimitive || type == typeof(string) || type == typeof(DateTime) || type == typeof(decimal) || type == typeof(Guid) || type == typeof(DateTimeOffset) || type == typeof(TimeSpan);
+            return type.IsPrimitive ||
+                type == typeof(string) ||
+                type == typeof(DateTime) ||
+                type == typeof(decimal) ||
+                type == typeof(Guid) ||
+                type == typeof(DateTimeOffset) ||
+                type == typeof(TimeSpan);
+        }
+
+        /// <summary>
+        /// Determines whether type is a value type and allows nulls.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns><c>true</c> if the type is value type which allows nulls; otherwise, <c>false</c>.</returns>
+        public static bool IsNullableValueType(this Type type)
+        {
+            return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
         }
     }
 }

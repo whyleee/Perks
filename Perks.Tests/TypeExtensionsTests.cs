@@ -75,5 +75,25 @@ namespace Perks.Tests
         {
             complexType.IsSimpleType().Should().BeFalse();
         }
+
+        [Test]
+        [TestCase(typeof (int?))]
+        [TestCase(typeof (ConsoleColor?))]
+        [TestCase(typeof(Nullable<bool>))]
+        public void IsNullableValueType_For_value_type_that_allows_nulls_Should_return_true(Type valueTypeAllowingNulls)
+        {
+            valueTypeAllowingNulls.IsNullableValueType().Should().BeTrue();
+        }
+
+        [Test]
+        [TestCase(typeof(int))]
+        [TestCase(typeof(ConsoleColor))]
+        [TestCase(typeof(EventHandler<>))]
+        [TestCase(typeof(string))]
+        [TestCase(typeof(Exception))]
+        public void IsNullableValueType_For_ordinary_value_type_or_any_reference_type_Should_return_false(Type ordinaryValueTypeOrReferenceType)
+        {
+            ordinaryValueTypeOrReferenceType.IsNullableValueType().Should().BeFalse();
+        }
     }
 }

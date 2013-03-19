@@ -54,20 +54,21 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\AppSettingsConfigurationProviderTests.cs" />
+    <Compile Include="Configuration\AppSettingsConfigProviderTests.cs" />
+    <Compile Include="Data\InMemoryFileStorageTests.cs" />
     <Compile Include="Data\InMemoryRepositoryTests.cs" />
     <Compile Include="Data\LocalFileStorageTests.cs" />
     <Compile Include="Data\Xml\XmlStorageRepositoryTests.cs" />
+    <Compile Include="DateTimeExtensionsTests.cs" />
     <Compile Include="EnsureTests.cs" />
     <Compile Include="FixtureWitKernel.cs" />
     <Compile Include="ObjectExtensionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReflectionExtensionsTests.cs" />
     <Compile Include="StringExtensionsTests.cs" />
     <Compile Include="TypeExtensionsTests.cs" />
   </ItemGroup>

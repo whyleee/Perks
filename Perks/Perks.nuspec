@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>Perks</id>
+        <version>1.2</version>
+        <title />
+        <authors>Pavel Nezhencev</authors>
+        <owners />
+        <projectUrl>https://bitbucket.org/whyleee/perks</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>The pack of different helpers and wrappers for .NET, based on dependency injection, thus fully testable.</description>
+        <tags>Helpers wrappers dependency injection di unit tests</tags>
+        <frameworkAssemblies>
+            <frameworkAssembly assemblyName="Microsoft.CSharp" targetFramework="" />
+            <frameworkAssembly assemblyName="System" targetFramework="" />
+            <frameworkAssembly assemblyName="System.Configuration" targetFramework="" />
+            <frameworkAssembly assemblyName="System.Core" targetFramework="" />
+            <frameworkAssembly assemblyName="System.Xml" targetFramework="" />
+            <frameworkAssembly assemblyName="System.Xml.Linq" targetFramework="" />
+        </frameworkAssemblies>
+    </metadata>
+    <files>
+        <file src="lib\net40\Perks.dll" target="lib\net40\Perks.dll" />
+        <file src="lib\net40\Perks.xml" target="lib\net40\Perks.xml" />
+        <file src="lib\net45\Perks.dll" target="lib\net45\Perks.dll" />
+        <file src="lib\net45\Perks.xml" target="lib\net45\Perks.xml" />
+    </files>
+</package>

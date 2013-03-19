@@ -8,7 +8,7 @@ namespace Perks.Data
     public interface IFileStorage
     {
         /// <summary>
-        /// Creates new file in the storage.
+        /// Creates a new file in the storage or overwrites existing.
         /// </summary>
         /// <param name="path">The path where to create a file.</param>
         void CreateFile(string path);
@@ -29,7 +29,7 @@ namespace Perks.Data
         TextReader OpenRead(string path);
 
         /// <summary>
-        /// Opens the file to write.
+        /// Opens the file to write or creates a new file if not exist.
         /// </summary>
         /// <param name="path">The path to file.</param>
         /// <returns><see cref="TextWriter"/> that can write to a file.</returns>
@@ -75,5 +75,17 @@ namespace Perks.Data
         /// <param name="path">The path to file.</param>
         /// <returns><c>true</c> if file exists for provided path; otherwise <c>false</c>.</returns>
         bool FileExists(string path);
+
+        /// <summary>
+        /// Creates all directories and subdirectores in the specified path.
+        /// </summary>
+        /// <param name="path">The path to the directory.</param>
+        void CreateDirectory(string path);
+
+        /// <summary>
+        /// Gets the path to the folder provided by the storage for temporary files.
+        /// </summary>
+        /// <returns>The path to the temp folder.</returns>
+        string GetTempFolderPath();
     }
 }

@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>Perks.Web</id>
+        <version>1.2</version>
+        <title />
+        <authors>Pavel Nezhencev</authors>
+        <owners />
+        <projectUrl>https://bitbucket.org/whyleee/perks</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>The pack with additional helpers and wrappers for web applications, based on dependency injection, thus fully testable.</description>
+        <tags>Helpers wrappers dependency injection di unit tests web ASP.NET</tags>
+        <dependencies>
+            <dependency id="Perks" version="1.2" />
+        </dependencies>
+        <frameworkAssemblies>
+            <frameworkAssembly assemblyName="Microsoft.CSharp" targetFramework="" />
+            <frameworkAssembly assemblyName="System" targetFramework="" />
+            <frameworkAssembly assemblyName="System.Configuration" targetFramework="" />
+            <frameworkAssembly assemblyName="System.Core" targetFramework="" />
+            <frameworkAssembly assemblyName="System.Web" targetFramework="" />
+        </frameworkAssemblies>
+    </metadata>
+    <files>
+        <file src="lib\net40\Perks.Web.dll" target="lib\net40\Perks.Web.dll" />
+        <file src="lib\net40\Perks.Web.xml" target="lib\net40\Perks.Web.xml" />
+        <file src="lib\net45\Perks.Web.dll" target="lib\net45\Perks.Web.dll" />
+        <file src="lib\net45\Perks.Web.xml" target="lib\net45\Perks.Web.xml" />
+    </files>
+</package>

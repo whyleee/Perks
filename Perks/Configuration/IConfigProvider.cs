@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents any kind of configuration provider.
     /// </summary>
-    public interface IConfigurationProvider
+    public interface IConfigProvider
     {
         /// <summary>
         /// Gets the setting from the configuration provider.

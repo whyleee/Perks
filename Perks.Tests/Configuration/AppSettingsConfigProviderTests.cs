@@ -13,11 +13,11 @@ using Perks.Wrappers;
 
 namespace Perks.Tests.Configuration
 {
-    public class AppSettingsConfigurationProviderTests : FixtureWithKernel
+    public class AppSettingsConfigProviderTests : FixtureWithKernel
     {
-        private AppSettingsConfigurationProvider config;
+        private AppSettingsConfigProvider config;
 
-        public AppSettingsConfigurationProviderTests()
+        public AppSettingsConfigProviderTests()
         {
             kernel.Bind<ConfigWrapper>().ToMock().InSingletonScope();
         }
@@ -25,7 +25,7 @@ namespace Perks.Tests.Configuration
         [SetUp]
         public void SetUp()
         {
-            config = kernel.Get<AppSettingsConfigurationProvider>();
+            config = kernel.Get<AppSettingsConfigProvider>();
         }
 
         [Test]

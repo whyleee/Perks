@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using Perks.Configuration;
 using Perks.Web.Wrappers;
 using Perks.Wrappers;
@@ -8,14 +9,14 @@ namespace Perks.Web.Configuration
     /// <summary>
     /// Provider for standard .NET web application configuration file.
     /// </summary>
-    public class WebAppSettingsConfigurationProvider : AppSettingsConfigurationProvider
+    public class WebAppSettingsConfigProvider : AppSettingsConfigProvider
     {
         protected readonly HostWrapper _host;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="WebAppSettingsConfigurationProvider" /> class.
+        /// Initializes a new instance of the <see cref="WebAppSettingsConfigProvider" /> class.
         /// </summary>
-        public WebAppSettingsConfigurationProvider(ConfigWrapper config, HostWrapper host) : base(config)
+        public WebAppSettingsConfigProvider(ConfigWrapper config, HostWrapper host) : base(config)
         {
             Ensure.ArgumentNotNull(host, "host");
 

@@ -18,6 +18,7 @@ namespace Perks.Data.Xml
         /// <summary>
         /// Initializes a new instance of the <see cref="XmlStorageRepository{T}" /> class.
         /// </summary>
+        /// <param name="xmlPath">The path to the XML file for storage use.</param>
         public XmlStorageRepository(string xmlPath, XmlService xmlService)
         {
             Ensure.ArgumentNotNullOrEmpty(xmlPath, "xmlPath");
