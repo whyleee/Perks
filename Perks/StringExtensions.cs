@@ -14,6 +14,26 @@ namespace Perks
     public static class StringExtensions
     {
         /// <summary>
+        /// Determines whether the specified string is null or empty.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <returns><c>true</c> if the specified string is null or empty; otherwise, <c>false</c>.</returns>
+        public static bool IsNullOrEmpty(this string source)
+        {
+            return string.IsNullOrEmpty(source);
+        }
+
+        /// <summary>
+        /// Determines whether the specified string is not null or empty.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <returns><c>true</c> if the specified string is not null or empty; otherwise, <c>false</c>.</returns>
+        public static bool IsNotNullOrEmpty(this string source)
+        {
+            return !string.IsNullOrEmpty(source);
+        }
+
+        /// <summary>
         /// Returns string only if it has value. Can be used with ?? operator. 
         /// </summary>
         /// <param name="source">Source string. </param>
@@ -83,6 +103,40 @@ namespace Perks
             }
 
             return camelCased;
+        }
+
+        /// <summary>
+        /// Cuts the string to the specified maximum count of characters, not splitting the words.
+        /// </summary>
+        /// <param name="text">The text to cut.</param>
+        /// <param name="maxChars">The maximum characters for the result text.</param>
+        /// <param name="with">The string to insert to the place of cut.</param>
+        /// <returns>Cut string to the specified maximum count of characters.</returns>
+        public static string CutTo(this string text, int maxChars, string with = "")
+        {
+            if (text.IsNullOrEmpty())
+            {
+                return text;
+            }
+
+            var cut = new string(text.Take(maxChars).ToArray());
+
+            if (cut.Length < text.Length)
+            {
+                if (text[maxChars] != ' ')
+                {
+                    var lastSpace = cut.LastIndexOf(' ');
+
+                    if (lastSpace != -1)
+                    {
+                        cut = cut.Substring(0, lastSpace);
+                    }
+                }
+
+                cut += with;
+            }
+
+            return cut;
         }
 
         /// <summary>

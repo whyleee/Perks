@@ -65,6 +65,7 @@
     <Compile Include="Data\Xml\XmlStorageRepositoryTests.cs" />
     <Compile Include="DateTimeExtensionsTests.cs" />
     <Compile Include="EnsureTests.cs" />
+    <Compile Include="EnumerableExtensionsTests.cs" />
     <Compile Include="FixtureWitKernel.cs" />
     <Compile Include="ObjectExtensionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
