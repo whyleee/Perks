@@ -213,6 +213,16 @@ namespace Perks.Tests
         }
 
         [Test]
+        public void ToCamelCase_For_empty_string_Should_return_empty_string()
+        {
+            // act
+            var result = string.Empty.ToCamelCase();
+
+            // asserts
+            result.Should().Be(string.Empty);
+        }
+
+        [Test]
         [TestCase(null)]
         [TestCase("")]
         public void CutTo_For_null_or_empty_string_Should_return_that_string(string nullOrEmpty)
@@ -250,16 +260,6 @@ namespace Perks.Tests
         public void CutTo_If_insertion_string_is_specified_Should_return_cut_string_ending_with_insertion()
         {
             "Hello world!".CutTo(10, "...").Should().Be("Hello...");
-        }
-
-        [Test]
-        public void ToCamelCase_For_empty_string_Should_return_empty_string()
-        {
-            // act
-            var result = string.Empty.ToCamelCase();
-
-            // asserts
-            result.Should().Be(string.Empty);
         }
 
         [Test]

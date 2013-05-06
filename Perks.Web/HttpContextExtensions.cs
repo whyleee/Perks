@@ -12,7 +12,7 @@ namespace Perks.Web
     public static class HttpContextExtensions
     {
         /// <summary>
-        /// Gets the absolute host URL (including sheme, host and port if it's not 80).
+        /// Gets the absolute host URL (including scheme, host and port if it's not 80).
         /// </summary>
         /// <param name="request">The HTTP request.</param>
         /// <returns>The absolute host URL (including sheme, host and port if it's not 80).</returns>
@@ -33,7 +33,9 @@ namespace Perks.Web
             Ensure.ArgumentNotNull(request, "request");
 
             var hostName = request.GetHostUrl();
-            return hostName.Substring(hostName.LastIndexOf('.') + 1);
+            var lastDotIndex = hostName.LastIndexOf('.');
+
+            return lastDotIndex != -1 ? hostName.Substring(lastDotIndex + 1) : request.Url.Host;
         }
     }
 }
