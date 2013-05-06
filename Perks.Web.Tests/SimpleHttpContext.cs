@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Web;
 
@@ -32,5 +33,11 @@ namespace Perks.Web.Tests
         {
             get { return _request; }
         }
+
+        /// <summary>
+        /// Gets or sets security information for the current HTTP request.
+        /// </summary>
+        /// <returns>An object that contains security information for the current HTTP request.</returns>
+        public override IPrincipal User { get; set; }
     }
 }

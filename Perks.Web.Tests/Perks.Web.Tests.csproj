@@ -61,6 +61,8 @@
     <Compile Include="Configuration\WebAppSettingsConfigProviderTests.cs" />
     <Compile Include="HttpContextExtensionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\AspNetFormsAuthenticationServiceTests.cs" />
+    <Compile Include="Security\AspNetMembershipServiceTests.cs" />
     <Compile Include="SimpleHttpContext.cs" />
     <Compile Include="SimpleHttpRequest.cs" />
   </ItemGroup>
