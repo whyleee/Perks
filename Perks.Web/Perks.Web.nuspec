@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Perks.Web</id>
-        <version>1.2</version>
+        <version>1.3</version>
         <title />
         <authors>Pavel Nezhencev</authors>
         <owners />
@@ -11,7 +11,7 @@
         <description>The pack with additional helpers and wrappers for web applications, based on dependency injection, thus fully testable.</description>
         <tags>Helpers wrappers dependency injection di unit tests web ASP.NET</tags>
         <dependencies>
-            <dependency id="Perks" version="1.2" />
+            <dependency id="Perks" version="1.3" />
         </dependencies>
         <frameworkAssemblies>
             <frameworkAssembly assemblyName="Microsoft.CSharp" targetFramework="" />

@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using FluentAssertions;
 using NSubstitute;
 using NUnit.Framework;
 using Ninject;
 using Ninject.MockingKernel;
-using Perks.Tests;
 using Perks.Web.Configuration;
 using Perks.Web.Wrappers;
 using Perks.Wrappers;
 
-namespace Perks.Web.Tests.Configuration
+namespace Perks.Tests.Web.Configuration
 {
     public class WebAppSettingsConfigProviderTests : FixtureWithKernel
     {

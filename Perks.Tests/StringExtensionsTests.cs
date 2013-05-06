@@ -13,6 +13,34 @@ namespace Perks.Tests
         [Test]
         [TestCase(null)]
         [TestCase("")]
+        public void IsNullOrEmpty_For_null_or_empty_string_Should_return_true(string nullOrEmpty)
+        {
+            nullOrEmpty.IsNullOrEmpty().Should().BeTrue();
+        }
+
+        [Test]
+        public void IsNullOrEmpty_For_not_empty_string_Should_return_false()
+        {
+            "hello".IsNullOrEmpty().Should().BeFalse();
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        public void IsNotNullOrEmpty_For_null_or_empty_string_Should_return_false(string nullOrEmpty)
+        {
+            nullOrEmpty.IsNotNullOrEmpty().Should().BeFalse();
+        }
+
+        [Test]
+        public void IsNotNullOrEmpty_For_not_empty_string_Should_return_true()
+        {
+            "hello".IsNotNullOrEmpty().Should().BeTrue();
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
         public void IfNotNullOrEmpty_For_null_or_empty_string_Should_return_null(string str)
         {
             // act
@@ -192,6 +220,46 @@ namespace Perks.Tests
 
             // asserts
             result.Should().Be(string.Empty);
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        public void CutTo_For_null_or_empty_string_Should_return_that_string(string nullOrEmpty)
+        {
+            nullOrEmpty.CutTo(10).Should().Be(nullOrEmpty);
+        }
+
+        [Test]
+        [TestCase(5)]
+        [TestCase(10)]
+        public void CutTo_For_small_strings_Should_return_that_string(int maxChars)
+        {
+            "hello".CutTo(maxChars).Should().Be("hello");
+        }
+
+        [Test]
+        public void CutTo_For_too_big_string_Should_return_cut_string()
+        {
+            "Hello world!".CutTo(5).Should().Be("Hello");
+        }
+
+        [Test]
+        public void CutTo_For_too_big_string_When_last_word_become_splitted_Should_cut_up_to_the_last_word()
+        {
+            "Hello world!".CutTo(10).Should().Be("Hello");
+        }
+
+        [Test]
+        public void CutTo_For_too_big_string_without_spaces_Should_just_cut_the_string()
+        {
+            "[{\"some\":\"json\"}]".CutTo(10).Should().Be("[{\"some\":\"");
+        }
+
+        [Test]
+        public void CutTo_If_insertion_string_is_specified_Should_return_cut_string_ending_with_insertion()
+        {
+            "Hello world!".CutTo(10, "...").Should().Be("Hello...");
         }
 
         [Test]

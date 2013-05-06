@@ -62,5 +62,83 @@ namespace Perks.Tests
             // asserts
             result.Should().BeNull();
         }
+
+        [Test]
+        public void If_When_assertion_is_passed_Should_return_object()
+        {
+            // setups
+            var obj = new StringBuilder();
+
+            // act
+            var result = obj.If(x => x.Length == 0);
+
+            // asserts
+            result.Should().Be(obj);
+        }
+
+        [Test]
+        public void If_When_assertion_is_failed_Should_return_null()
+        {
+            // setups
+            var obj = new StringBuilder();
+
+            // act
+            var result = obj.If(x => x.Length > 0);
+
+            // asserts
+            result.Should().BeNull();
+        }
+
+        [Test]
+        public void If_When_object_is_of_specified_type_Should_return_the_object()
+        {
+            // setups
+            var obj = new EventArgs();
+
+            // act
+            var result = obj.If<EventArgs>();
+
+            // asserts
+            result.Should().Be(obj);
+        }
+
+        [Test]
+        public void If_When_object_is_not_of_the_specified_type_Should_return_null()
+        {
+            // setups
+            var obj = new EventArgs();
+
+            // act
+            var result = obj.If<StringBuilder>();
+
+            // asserts
+            result.Should().BeNull();
+        }
+
+        [Test]
+        public void If_For_object_with_expression_When_object_is_of_specified_type_Should_return_the_value_of_expression()
+        {
+            // setups
+            var obj = new StringBuilder("hello");
+
+            // act
+            var result = obj.If<StringBuilder>(x => x.ToString());
+
+            // asserts
+            result.Should().Be("hello");
+        }
+
+        [Test]
+        public void If_For_object_with_expression_When_object_is_not_of_specified_type_Should_return_null()
+        {
+            // setups
+            var obj = new EventArgs();
+
+            // act
+            var result = obj.If<StringBuilder>(x => x.ToString());
+
+            // asserts
+            result.Should().BeNull();
+        }
     }
 }
