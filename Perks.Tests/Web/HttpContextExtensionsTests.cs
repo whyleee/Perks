@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Web;
 using FluentAssertions;
 using NUnit.Framework;
-using Perks.Tests;
+using Perks.Web;
 
-namespace Perks.Web.Tests
+namespace Perks.Tests.Web
 {
     public class HttpContextExtensionsTests : FixtureWithKernel
     {

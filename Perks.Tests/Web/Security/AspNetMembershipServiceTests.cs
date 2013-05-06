@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Web.Security;
 using FluentAssertions;
 using NSubstitute;
 using NUnit.Framework;
 using Ninject;
 using Ninject.MockingKernel;
 using Perks.Security;
-using Perks.Tests;
 using Perks.Web.Security;
 using Perks.Web.Wrappers;
 
-namespace Perks.Web.Tests.Security
+namespace Perks.Tests.Web.Security
 {
     public class AspNetMembershipServiceTests : FixtureWithKernel
     {

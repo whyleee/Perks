@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
-using System.Text;
 using System.Web;
 
-namespace Perks.Web.Tests
+namespace Perks.Tests.Web
 {
     /// <summary>
     /// The simple dumb implementation of <see cref="HttpContextBase"/>, handy in unit tests.
