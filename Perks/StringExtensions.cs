@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Perks
 {
@@ -175,6 +177,56 @@ namespace Perks
             {
                 Marshal.FreeBSTR(bstr);
             }
+        }
+
+        /// <summary>
+        /// Converts a camel-cased or pascal-cased string to ordinary readable text.
+        /// </summary>
+        /// <param name="text">The text to convert.</param>
+        /// <returns>Readable string converted from camel-cased or pascal-cased string.</returns>
+        public static string ToFriendlyString(this string text)
+        {
+            return Regex.Replace(text, @"([a-z](?=[A-Z]|\d)|[A-Z](?=[A-Z][a-z]|\d)|\d(?=[A-Z][a-z]))", "$1 ");
+        }
+
+        /// <summary>
+        /// Converts a string to a URL-encoded string.
+        /// </summary>
+        /// <param name="value">The string to encode.</param>
+        /// <returns>An encoded string.</returns>
+        public static string UrlEncode(this string value)
+        {
+            return WebUtility.UrlEncode(value);
+        }
+
+        /// <summary>
+        /// Converts a string that has been URL-encoded for HTTP transmission into a decoded string.
+        /// </summary>
+        /// <param name="value">The string to decode.</param>
+        /// <returns>A decoded string.</returns>
+        public static string UrlDecode(this string value)
+        {
+            return WebUtility.UrlDecode(value);
+        }
+
+        /// <summary>
+        /// Converts a string to an HTML-encoded string.
+        /// </summary>
+        /// <param name="value">The string to encode.</param>
+        /// <returns>An encoded string.</returns>
+        public static string HtmlEncode(this string value)
+        {
+            return WebUtility.HtmlEncode(value);
+        }
+
+        /// <summary>
+        /// Converts a string that has been HTML-encoded for HTTP transmission into a decoded string.
+        /// </summary>
+        /// <param name="value">The string to decode.</param>
+        /// <returns>A decoded string.</returns>
+        public static string HtmlDecode(this string value)
+        {
+            return WebUtility.HtmlDecode(value);
         }
     }
 }

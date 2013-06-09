@@ -304,5 +304,29 @@ namespace Perks.Tests
             // asserts
             call.ShouldThrow<ArgumentNullException>().Where(x => x.ParamName == "s");
         }
+
+        [Test]
+        public void ToFriendlyString_Should_insert_spaces_between_words()
+        {
+            "HelloToTheWorld!".ToFriendlyString().Should().Be("Hello To The World!");
+        }
+
+        [Test]
+        public void ToFriendlyString_Should_not_insert_spaces_in_acronyms()
+        {
+            "HandsUpNYPD!".ToFriendlyString().Should().Be("Hands Up NYPD!");
+        }
+
+        [Test]
+        public void ToFriendlyString_Should_insert_spaces_between_numbers_and_words()
+        {
+            "8Plus8Equals16Right?".ToFriendlyString().Should().Be("8 Plus 8 Equals 16 Right?");
+        }
+
+        [Test]
+        public void ToFriendlyString_Should_not_do_anything_with_friendly_string()
+        {
+            "I'm already OK!".ToFriendlyString().Should().Be("I'm already OK!");
+        }
     }
 }

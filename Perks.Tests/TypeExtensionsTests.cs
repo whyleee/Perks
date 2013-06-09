@@ -10,6 +10,44 @@ namespace Perks.Tests
     public class TypeExtensionsTests
     {
         [Test]
+        public void Is_For_type_assignable_from_base_type_Should_return_true()
+        {
+            typeof(ArgumentException).Is<Exception>().Should().BeTrue();
+        }
+
+        [Test]
+        public void Is_For_type_not_assignable_from_base_type_Should_return_false()
+        {
+            typeof(string).Is<Exception>().Should().BeFalse();
+        }
+
+        [Test]
+        public void Is_Should_work_with_generics()
+        {
+            typeof(List<string>).Is<IEnumerable<string>>().Should().BeTrue();
+            typeof(List<string>).Is(typeof(IEnumerable<int>)).Should().BeFalse();
+        }
+
+        [Test]
+        public void Is_Should_work_with_open_generics()
+        {
+            typeof(List<string>).Is(typeof(IEnumerable<>)).Should().BeTrue();
+            typeof(List<>).Is(typeof(IEnumerable<>)).Should().BeTrue();
+        }
+        
+        [Test]
+        public void IsNot_For_type_assignable_from_base_type_Should_return_false()
+        {
+            typeof(ArgumentException).IsNot<Exception>().Should().BeFalse();
+        }
+
+        [Test]
+        public void IsNot_For_type_not_assignable_from_base_type_Should_return_true()
+        {
+            typeof(string).IsNot<Exception>().Should().BeTrue();
+        }
+
+        [Test]
         [TestCase(typeof(bool))]
         [TestCase(typeof(byte))]
         [TestCase(typeof(sbyte))]
