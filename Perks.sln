@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		SolutionInfo.cs = SolutionInfo.cs
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Perks.Mvc", "Perks.Mvc\Perks.Mvc.csproj", "{87DA5D46-8D93-44E0-97A2-E8391C6EC693}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{486704AF-FFC4-4E32-8C04-EB59112063AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{486704AF-FFC4-4E32-8C04-EB59112063AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{486704AF-FFC4-4E32-8C04-EB59112063AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87DA5D46-8D93-44E0-97A2-E8391C6EC693}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87DA5D46-8D93-44E0-97A2-E8391C6EC693}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87DA5D46-8D93-44E0-97A2-E8391C6EC693}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87DA5D46-8D93-44E0-97A2-E8391C6EC693}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
