@@ -196,7 +196,11 @@ namespace Perks
         /// <returns>An encoded string.</returns>
         public static string UrlEncode(this string value)
         {
+#if NET40
+            return WebUtility_UrlEncode(value);
+#else
             return WebUtility.UrlEncode(value);
+#endif
         }
 
         /// <summary>
@@ -206,7 +210,11 @@ namespace Perks
         /// <returns>A decoded string.</returns>
         public static string UrlDecode(this string value)
         {
+#if NET40
+            return WebUtility_UrlDecode(value);
+#else
             return WebUtility.UrlDecode(value);
+#endif
         }
 
         /// <summary>
@@ -228,5 +236,265 @@ namespace Perks
         {
             return WebUtility.HtmlDecode(value);
         }
+
+#if NET40
+        private static string WebUtility_UrlEncode(string value)
+        {
+            if (value == null)
+            {
+                return null;
+            }
+            byte[] bytes = Encoding.UTF8.GetBytes(value);
+            return Encoding.UTF8.GetString(WebUtility_UrlEncode(bytes, 0, bytes.Length, false));
+        }
+
+        private static byte[] WebUtility_UrlEncode(byte[] bytes, int offset, int count, bool alwaysCreateNewReturnValue)
+        {
+            byte[] array = WebUtility_UrlEncode(bytes, offset, count);
+            if (!alwaysCreateNewReturnValue || array == null || array != bytes)
+            {
+                return array;
+            }
+            return (byte[])array.Clone();
+        }
+
+        private static byte[] WebUtility_UrlEncode(byte[] bytes, int offset, int count)
+        {
+            if (!WebUtility_ValidateUrlEncodingParameters(bytes, offset, count))
+            {
+                return null;
+            }
+            int num = 0;
+            int num2 = 0;
+            for (int i = 0; i < count; i++)
+            {
+                char c = (char)bytes[offset + i];
+                if (c == ' ')
+                {
+                    num++;
+                }
+                else
+                {
+                    if (!WebUtility_IsUrlSafeChar(c))
+                    {
+                        num2++;
+                    }
+                }
+            }
+            if (num == 0 && num2 == 0)
+            {
+                return bytes;
+            }
+            byte[] array = new byte[count + num2 * 2];
+            int num3 = 0;
+            for (int j = 0; j < count; j++)
+            {
+                byte b = bytes[offset + j];
+                char c2 = (char)b;
+                if (WebUtility_IsUrlSafeChar(c2))
+                {
+                    array[num3++] = b;
+                }
+                else
+                {
+                    if (c2 == ' ')
+                    {
+                        array[num3++] = 43;
+                    }
+                    else
+                    {
+                        array[num3++] = 37;
+                        array[num3++] = (byte)WebUtility_IntToHex(b >> 4 & 15);
+                        array[num3++] = (byte)WebUtility_IntToHex((int)(b & 15));
+                    }
+                }
+            }
+            return array;
+        }
+
+        private static string WebUtility_UrlDecode(string encodedValue)
+        {
+            if (encodedValue == null)
+            {
+                return null;
+            }
+            return WebUtility_UrlDecodeInternal(encodedValue, Encoding.UTF8);
+        }
+
+        private static string WebUtility_UrlDecodeInternal(string value, Encoding encoding)
+        {
+            if (value == null)
+            {
+                return null;
+            }
+            int length = value.Length;
+            WebUtility_UrlDecoder urlDecoder = new WebUtility_UrlDecoder(length, encoding);
+            int i = 0;
+            while (i < length)
+            {
+                char c = value[i];
+                if (c == '+')
+                {
+                    c = ' ';
+                    goto IL_77;
+                }
+                if (c != '%' || i >= length - 2)
+                {
+                    goto IL_77;
+                }
+                int num = WebUtility_HexToInt(value[i + 1]);
+                int num2 = WebUtility_HexToInt(value[i + 2]);
+                if (num < 0 || num2 < 0)
+                {
+                    goto IL_77;
+                }
+                byte b = (byte)(num << 4 | num2);
+                i += 2;
+                urlDecoder.AddByte(b);
+            IL_91:
+                i++;
+                continue;
+            IL_77:
+                if ((c & 'ﾀ') == '\0')
+                {
+                    urlDecoder.AddByte((byte)c);
+                    goto IL_91;
+                }
+                urlDecoder.AddChar(c);
+                goto IL_91;
+            }
+            return urlDecoder.GetString();
+        }
+
+        private static bool WebUtility_ValidateUrlEncodingParameters(byte[] bytes, int offset, int count)
+        {
+            if (bytes == null && count == 0)
+            {
+                return false;
+            }
+            if (bytes == null)
+            {
+                throw new ArgumentNullException("bytes");
+            }
+            if (offset < 0 || offset > bytes.Length)
+            {
+                throw new ArgumentOutOfRangeException("offset");
+            }
+            if (count < 0 || offset + count > bytes.Length)
+            {
+                throw new ArgumentOutOfRangeException("count");
+            }
+            return true;
+        }
+
+        private static bool WebUtility_IsUrlSafeChar(char ch)
+        {
+            if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9'))
+            {
+                return true;
+            }
+            if (ch != '!')
+            {
+                switch (ch)
+                {
+                    case '(':
+                    case ')':
+                    case '*':
+                    case '-':
+                    case '.':
+                        return true;
+                    case '+':
+                    case ',':
+                        break;
+                    default:
+                        if (ch == '_')
+                        {
+                            return true;
+                        }
+                        break;
+                }
+                return false;
+            }
+            return true;
+        }
+
+        private static char WebUtility_IntToHex(int n)
+        {
+            if (n <= 9)
+            {
+                return (char)(n + 48);
+            }
+            return (char)(n - 10 + 65);
+        }
+
+        private static int WebUtility_HexToInt(char h)
+        {
+            if (h >= '0' && h <= '9')
+            {
+                return (int)(h - '0');
+            }
+            if (h >= 'a' && h <= 'f')
+            {
+                return (int)(h - 'a' + '\n');
+            }
+            if (h < 'A' || h > 'F')
+            {
+                return -1;
+            }
+            return (int)(h - 'A' + '\n');
+        }
+
+        private class WebUtility_UrlDecoder
+        {
+            private int _bufferSize;
+            private int _numChars;
+            private char[] _charBuffer;
+            private int _numBytes;
+            private byte[] _byteBuffer;
+            private Encoding _encoding;
+            private void FlushBytes()
+            {
+                if (this._numBytes > 0)
+                {
+                    this._numChars += this._encoding.GetChars(this._byteBuffer, 0, this._numBytes, this._charBuffer, this._numChars);
+                    this._numBytes = 0;
+                }
+            }
+            internal WebUtility_UrlDecoder(int bufferSize, Encoding encoding)
+            {
+                this._bufferSize = bufferSize;
+                this._encoding = encoding;
+                this._charBuffer = new char[bufferSize];
+            }
+            internal void AddChar(char ch)
+            {
+                if (this._numBytes > 0)
+                {
+                    this.FlushBytes();
+                }
+                this._charBuffer[this._numChars++] = ch;
+            }
+            internal void AddByte(byte b)
+            {
+                if (this._byteBuffer == null)
+                {
+                    this._byteBuffer = new byte[this._bufferSize];
+                }
+                this._byteBuffer[this._numBytes++] = b;
+            }
+            internal string GetString()
+            {
+                if (this._numBytes > 0)
+                {
+                    this.FlushBytes();
+                }
+                if (this._numChars > 0)
+                {
+                    return new string(this._charBuffer, 0, this._numChars);
+                }
+                return string.Empty;
+            }
+        }
+#endif
     }
 }

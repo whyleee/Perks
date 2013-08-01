@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace Perks
@@ -110,5 +111,52 @@ namespace Perks
 
             return type.GetElementType() ?? type.GetGenericArguments().FirstOrDefault();
         }
+
+        public static bool Has<TAttribute>(this Type type) where TAttribute : Attribute
+        {
+            return type.Get<TAttribute>() != null;
+        }
+
+        public static bool Has<TAttribute>(this MemberInfo member) where TAttribute : Attribute
+        {
+            return member.Get<TAttribute>() != null;
+        }
+
+        public static bool Has<TAttribute>(this MemberInfo member, Func<TAttribute, bool> with) where TAttribute : Attribute
+        {
+            var attr = member.Get<TAttribute>();
+
+            return attr != null && with(attr);
+        }
+
+        public static TAttribute Get<TAttribute>(this Type type) where TAttribute : Attribute
+        {
+#if NET40
+            return type.CustomAttributeExtensions_GetCustomAttribute<TAttribute>();
+#else
+            return type.GetCustomAttribute<TAttribute>();
+#endif
+        }
+
+        public static TAttribute Get<TAttribute>(this MemberInfo member) where TAttribute : Attribute
+        {
+#if NET40
+            return member.CustomAttributeExtensions_GetCustomAttribute<TAttribute>();
+#else
+            return member.GetCustomAttribute<TAttribute>();
+#endif
+        }
+
+#if NET40
+        private static T CustomAttributeExtensions_GetCustomAttribute<T>(this MemberInfo element) where T : Attribute
+        {
+            return (T)((object)element.CustomAttributeExtensions_GetCustomAttribute(typeof(T)));
+        }
+
+        public static Attribute CustomAttributeExtensions_GetCustomAttribute(this MemberInfo element, Type attributeType)
+        {
+            return Attribute.GetCustomAttribute(element, attributeType);
+        }
+#endif
     }
 }
