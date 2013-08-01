@@ -131,12 +131,32 @@ namespace Perks
 
         public static TAttribute Get<TAttribute>(this Type type) where TAttribute : Attribute
         {
+#if NET40
+            return type.CustomAttributeExtensions_GetCustomAttribute<TAttribute>();
+#else
             return type.GetCustomAttribute<TAttribute>();
+#endif
         }
 
         public static TAttribute Get<TAttribute>(this MemberInfo member) where TAttribute : Attribute
         {
+#if NET40
+            return member.CustomAttributeExtensions_GetCustomAttribute<TAttribute>();
+#else
             return member.GetCustomAttribute<TAttribute>();
+#endif
         }
+
+#if NET40
+        private static T CustomAttributeExtensions_GetCustomAttribute<T>(this MemberInfo element) where T : Attribute
+        {
+            return (T)((object)element.CustomAttributeExtensions_GetCustomAttribute(typeof(T)));
+        }
+
+        public static Attribute CustomAttributeExtensions_GetCustomAttribute(this MemberInfo element, Type attributeType)
+        {
+            return Attribute.GetCustomAttribute(element, attributeType);
+        }
+#endif
     }
 }
