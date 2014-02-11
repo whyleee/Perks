@@ -40,13 +40,13 @@ namespace Perks.Tests.Data.Xml
         public void On_construction_When_xml_storage_not_exists_Should_create_empty_storage()
         {
             // setups
-            kernel.Get<IFileStorage>().FileExists(@"D:\some\path.xml").Returns(false);
+            kernel.Get<IOldFileStorage>().FileExists(@"D:\some\path.xml").Returns(false);
 
             // act
             var repo = CreateRepo<Person>();
 
             // asserts
-            kernel.Get<IFileStorage>().Received().WriteFile(@"D:\some\path.xml", Arg.Is<string>(x =>
+            kernel.Get<IOldFileStorage>().Received().WriteFile(@"D:\some\path.xml", Arg.Is<string>(x =>
                 x.StartsWith("<?xml version=\"1.0\"?>") && x.Contains("<root>") && x.Contains("</root>")));
         }
 
@@ -69,7 +69,7 @@ namespace Perks.Tests.Data.Xml
                         </root>";
             var doc = new StringReader(xml);
 
-            kernel.Get<IFileStorage>().OpenRead(Arg.Any<string>()).Returns(doc);
+            kernel.Get<IOldFileStorage>().OpenRead(Arg.Any<string>()).Returns(doc);
 
             // act
             var all = CreateRepo<Person>().GetAll();
@@ -89,7 +89,7 @@ namespace Perks.Tests.Data.Xml
                         </root>";
             var doc = new StringReader(xml);
 
-            kernel.Get<IFileStorage>().OpenRead(Arg.Any<string>()).Returns(doc);
+            kernel.Get<IOldFileStorage>().OpenRead(Arg.Any<string>()).Returns(doc);
 
             // act
             var all = CreateRepo<Person>().GetAll();
@@ -117,7 +117,7 @@ namespace Perks.Tests.Data.Xml
                         </Users>";
             var doc = new StringReader(xml);
 
-            kernel.Get<IFileStorage>().OpenRead(Arg.Any<string>()).Returns(doc);
+            kernel.Get<IOldFileStorage>().OpenRead(Arg.Any<string>()).Returns(doc);
 
             // act
             var user = CreateRepo<Person>().Get(12);
@@ -147,7 +147,7 @@ namespace Perks.Tests.Data.Xml
                         </Users>";
             var doc = new StringReader(xml);
 
-            kernel.Get<IFileStorage>().OpenRead(Arg.Any<string>()).Returns(doc);
+            kernel.Get<IOldFileStorage>().OpenRead(Arg.Any<string>()).Returns(doc);
 
             var bobId = new Guid("cc0e1d01-6400-42e3-847e-c0c9e237fa3f");
 
@@ -179,7 +179,7 @@ namespace Perks.Tests.Data.Xml
                         </Users>";
             var doc = new StringReader(xml);
 
-            kernel.Get<IFileStorage>().OpenRead(Arg.Any<string>()).Returns(doc);
+            kernel.Get<IOldFileStorage>().OpenRead(Arg.Any<string>()).Returns(doc);
 
             // act
             var user = CreateRepo<Person>().Get(20);
@@ -203,8 +203,8 @@ namespace Perks.Tests.Data.Xml
             var doc = new StringReader(xml);
             var resultXmlBuilder = new StringBuilder();
 
-            kernel.Get<IFileStorage>().OpenRead(Arg.Any<string>()).Returns(doc);
-            kernel.Get<IFileStorage>().OpenWrite(Arg.Any<string>())
+            kernel.Get<IOldFileStorage>().OpenRead(Arg.Any<string>()).Returns(doc);
+            kernel.Get<IOldFileStorage>().OpenWrite(Arg.Any<string>())
                 .Returns(new StringWriter(resultXmlBuilder));
 
             var james = new Person {Id = 12, Name = "James", Surname = "Bond"};
@@ -238,8 +238,8 @@ namespace Perks.Tests.Data.Xml
             var doc = new StringReader(xml);
             var resultXmlBuilder = new StringBuilder();
 
-            kernel.Get<IFileStorage>().OpenRead(Arg.Any<string>()).Returns(doc);
-            kernel.Get<IFileStorage>().OpenWrite(Arg.Any<string>())
+            kernel.Get<IOldFileStorage>().OpenRead(Arg.Any<string>()).Returns(doc);
+            kernel.Get<IOldFileStorage>().OpenWrite(Arg.Any<string>())
                 .Returns(new StringWriter(resultXmlBuilder));
 
             var james = new Person {Id = 12, Name = "James", Surname = "Bond"};

@@ -10,7 +10,7 @@ namespace Perks.Data.Xml
     /// Simple XML-file based repository with permanent data persistence.
     /// </summary>
     /// <typeparam name="T">The type of items in repository.</typeparam>
-    public class XmlStorageRepository<T> : IRepository<T> where T : class
+    public class XmlStorageRepository<T> : IOldRepository<T> where T : class
     {
         protected readonly string _xmlPath;
         protected readonly XmlService _xmlService;

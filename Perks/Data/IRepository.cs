@@ -6,7 +6,7 @@ namespace Perks.Data
     /// Represents any kind of storage and provides simple collection-like API for it.
     /// </summary>
     /// <typeparam name="T">The type of items in repository.</typeparam>
-    public interface IRepository<T> where T : class
+    public interface IRepository<T> : IStorage where T : class
     {
         /// <summary>
         /// Gets all items of the specified type from the storage.

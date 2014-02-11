@@ -36,12 +36,12 @@ namespace Perks.Tests.Data
             public string Phone { get; set; }
         }
 
-        private IRepository<T> CreateRepo<T>() where T : class
+        private IOldRepository<T> CreateRepo<T>() where T : class
         {
-            return kernel.Get<InMemoryRepository<T>>();
+            return kernel.Get<OldInMemoryRepository<T>>();
         }
 
-        private IRepository<Customer> CreateRepoWithBobAndJames()
+        private IOldRepository<Customer> CreateRepoWithBobAndJames()
         {
             var repo = CreateRepo<Customer>();
 

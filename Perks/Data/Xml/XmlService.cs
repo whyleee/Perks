@@ -14,12 +14,12 @@ namespace Perks.Data.Xml
     /// </summary>
     public class XmlService
     {
-        protected readonly IFileStorage _storage;
+        protected readonly IOldFileStorage _storage;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="XmlService" /> class.
         /// </summary>
-        public XmlService(IFileStorage storage)
+        public XmlService(IOldFileStorage storage)
         {
             Ensure.ArgumentNotNull(storage, "storage");
 

@@ -16,7 +16,7 @@ namespace Perks.Tests.Data
 {
     public class LocalFileStorageTests : FixtureWithKernel
     {
-        private LocalFileStorage storage;
+        private OldLocalFileStorage storage;
 
         public LocalFileStorageTests()
         {
@@ -26,7 +26,7 @@ namespace Perks.Tests.Data
         [SetUp]
         public void SetUp()
         {
-            storage = kernel.Get<LocalFileStorage>();
+            storage = kernel.Get<OldLocalFileStorage>();
 
             MockTempFileCreation();
         }

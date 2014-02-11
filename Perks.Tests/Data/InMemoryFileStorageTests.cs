@@ -12,12 +12,12 @@ namespace Perks.Tests.Data
 {
     public class InMemoryFileStorageTests : FixtureWithKernel
     {
-        private InMemoryFileStorage storage;
+        private OldInMemoryFileStorage storage;
 
         [SetUp]
         public void SetUp()
         {
-            storage = kernel.Get<InMemoryFileStorage>();
+            storage = kernel.Get<OldInMemoryFileStorage>();
         }
 
         [Test]
