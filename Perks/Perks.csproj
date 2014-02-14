@@ -50,10 +50,13 @@
     <Compile Include="Configuration\IConfigProvider.cs" />
     <Compile Include="Data\IDirectory.cs" />
     <Compile Include="Data\IFile.cs" />
+    <Compile Include="Data\IFileIo.cs" />
     <Compile Include="Data\IFileStorage.cs" />
+    <Compile Include="Data\InMemoryFile.cs" />
     <Compile Include="Data\IOldFileStorage.cs" />
     <Compile Include="Data\IFsItem.cs" />
     <Compile Include="Data\IRepository.cs" />
+    <Compile Include="Data\LocalFile.cs" />
     <Compile Include="Data\OldInMemoryFileStorage.cs" />
     <Compile Include="Data\OldInMemoryRepository.cs" />
     <Compile Include="Data\IOldRepository.cs" />
